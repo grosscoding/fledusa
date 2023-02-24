@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:neopop/neopop.dart';
 import 'theme/color_schemes.g.dart';
 
+//screens
+import 'package:fledusa/shop/screens/splash_screen.dart';
+
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -15,7 +18,7 @@ class MyApp extends StatelessWidget {
           colorScheme: lightColorScheme,
           fontFamily: 'Metropolitano'),
       darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
-      title: 'Flutter layout demo',
+      title: 'Fledusa',
       home: const Home(),
     );
   }
@@ -29,35 +32,52 @@ class Home extends StatefulWidget {
 }
 
 class _HomeWidgetState extends State<Home> {
+  int _selectedIndex = 0;
+  void _onItemTapped(int index) {
+    setState(
+      () {
+        _selectedIndex = index;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Flutter layout demo'),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
-        selectedItemColor: Theme.of(context).colorScheme.primary,
-        currentIndex: 0,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-              icon: Icon(Icons.home), label: 'Flutter layout demo'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.home), label: 'Flutter layout test'),
-        ],
-      ),
-      body: ListView(
-        children: [
-          imageSection,
-          titleSection,
-          ButtonSection(),
-          textAreaSection,
-          NeopopButton(),
-        ],
-      ),
-    );
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text('Fledusa'),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Colors.white,
+          selectedItemColor: Theme.of(context).colorScheme.primary,
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+                icon: Icon(Icons.home), label: 'Flutter layout demo'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.home), label: 'Flutter layout test'),
+          ],
+        ),
+        body: Center(
+          child: _pages.elementAt(_selectedIndex),
+        ));
   }
 }
+
+final List<Widget> _pages = <Widget>[
+  ListView(
+    children: [
+      imageSection,
+      titleSection,
+      ButtonSection(),
+      textAreaSection,
+      NeopopButton(),
+    ],
+  ),
+  SplashScreen()
+];
 
 class ButtonSection extends StatelessWidget {
   @override
@@ -116,7 +136,7 @@ Widget titleSection = Container(
               child: const Text(
                 'Testapp KG',
                 style: TextStyle(
-                    fontWeight: FontWeight.bold, fontFamily: 'NotoSerif'),
+                    fontWeight: FontWeight.bold, fontFamily: 'Metropolitano'),
               ),
             ),
             Text(
@@ -148,10 +168,12 @@ class NeopopButton extends StatelessWidget {
           padding: const EdgeInsets.all(50),
           child: NeoPopTiltedButton(
             isFloating: true,
-            decoration: const NeoPopTiltedButtonDecoration(
+            decoration: NeoPopTiltedButtonDecoration(
               color: Colors.white,
-              shadowColor: Colors.white,
+              shadowColor: Color.fromARGB(255, 66, 66, 66),
               showShimmer: true,
+              shimmerColor: Theme.of(context).colorScheme.primary,
+              shimmerPlunkColor: Colors.white,
             ),
             onTapUp: () => print(123),
             onTapDown: () => print(1234),
@@ -167,7 +189,9 @@ class NeopopButton extends StatelessWidget {
                 children: [
                   Text(
                     'STARTEN',
-                    style: TextStyle(fontWeight: FontWeight.w700),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: Theme.of(context).colorScheme.primary),
                   )
                 ],
               ),
