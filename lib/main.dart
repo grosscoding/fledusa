@@ -1,3 +1,4 @@
+import 'package:fledusa/shop/screens/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:neopop/neopop.dart';
 import 'theme/color_schemes.g.dart';
@@ -76,7 +77,7 @@ final List<Widget> _pages = <Widget>[
       NeopopButton(),
     ],
   ),
-  SplashScreen()
+  HomeScreen()
 ];
 
 class ButtonSection extends StatelessWidget {
@@ -172,7 +173,7 @@ class NeopopButton extends StatelessWidget {
               color: Colors.white,
               shadowColor: Color.fromARGB(255, 66, 66, 66),
               showShimmer: true,
-              shimmerColor: Theme.of(context).colorScheme.primary,
+              shimmerColor: Colors.black,
               shimmerPlunkColor: Colors.white,
             ),
             onTapUp: () => print(123),
