@@ -1,0 +1,2 @@
+# fledusa
+Flutter + Medusa Starter
